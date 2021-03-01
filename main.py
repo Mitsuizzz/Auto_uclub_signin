@@ -4,6 +4,8 @@ from bs4 import BeautifulSoup
 
 USERNAME = os.environ["USERNAME"]
 PASSWORD = os.environ["PASSWORD"]
+SERVERPUSHKEY = os.environ["SERVERPUSHKEY"]
+
 PROXIES = {
     "http": "http://127.0.0.1:10809",
     "https": "http://127.0.0.1:10809"
@@ -48,6 +50,14 @@ def signin(session):
     soup = BeautifulSoup(f.text, 'html.parser')
     print(soup.find('h1').text)
 
+def push(title, content):
+    url = "https://sc.ftqq.com/"+ SERVERPUSHKEY +".send"
+    data = {
+       "text":title,
+       "desp":content
+    }
+    req = requests.post(api,data = data)
+    print("推送已发送");
 
 if __name__ == '__main__':
     if not USERNAME or not PASSWORD:
@@ -61,3 +71,4 @@ if __name__ == '__main__':
         print('登陆成功，您目前的积分为: %d' % getCredit(s))
         signin(s)
         print('签到完成，您目前的积分为: %d' % getCredit(s))
+        push('ucloud 签到提醒','签到完成，您目前的积分为: %d' % getCredit(s));
