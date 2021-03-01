@@ -51,7 +51,7 @@ def signin(session):
     print(soup.find('h1').text)
 
 def push(title, content):
-    url = "https://sc.ftqq.com/"+ SERVERPUSHKEY +".send"
+    api = "https://sc.ftqq.com/"+ SERVERPUSHKEY +".send"
     data = {
        "text":title,
        "desp":content
